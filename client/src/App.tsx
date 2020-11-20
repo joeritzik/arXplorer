@@ -43,10 +43,8 @@ const App: FunctionComponent = () => {
     );
     setLoading(true);
     try {
-      const [dict, data, metadata, articles] = await fetchGraphData(
-        query,
-        searchFilters
-      );
+      const [dict, data, articles] = await fetchGraphData(query, searchFilters);
+      console.log(searchFilters);
       if (data.links.length > 1000) {
         setTooLarge(true);
         setTimeout(() => setTooLarge(false), 5000);
