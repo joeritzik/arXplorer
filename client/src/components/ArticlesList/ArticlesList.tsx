@@ -29,7 +29,7 @@ const ArticlesList: React.FC<ArticleListProps> = ({
   setSelectedArticle,
 }) => {
   const [filteredList, setFilteredList] = useState<[] | any>([]);
-  const [categories, setCategories] = useState<[] | any>([]);
+  const [categories, setCategories] = useState<Category[] | []>([]);
   const [sortOrder, setSortOrder] = useState<string>('newest');
   const history = useHistory();
 

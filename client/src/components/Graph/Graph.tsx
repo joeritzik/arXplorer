@@ -7,6 +7,8 @@ import { select } from 'd3';
 import RightSidebar from '../RightSidebar';
 import TinySearchBar from '../TinySearchBar';
 import GraphErrorHandler from '../GraphErrorHandler';
+import { Author } from '../../types/Article';
+import { Category } from '../../types/Category';
 
 function Graph({
   graphData,
@@ -33,13 +35,13 @@ function Graph({
     graphData.links && setEmptyGraph(false);
   }, [graphData]);
 
-  const svgRef = useRef();
+  const svgRef = useRef<SVGSVGElement>(null);
   const dimensions = {
     width: window.innerWidth,
     height: window.innerWidth / 2,
   };
 
-  const handleClick = (author) => {
+  const handleClick = (author: Author) => {
     setSelectedAuthor(author);
   };
 

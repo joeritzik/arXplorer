@@ -8,3 +8,7 @@ export default interface Article {
   published: any;
   category: [];
 }
+
+export type Author = {
+  name: string;
+};

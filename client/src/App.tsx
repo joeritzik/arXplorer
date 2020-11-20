@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import './App.css';
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Graph from './components/Graph';
@@ -17,7 +17,7 @@ import {
 } from './services/ApiClient';
 import { queryPathBuilder } from './services/apiHelpers';
 
-function App() {
+const App: FunctionComponent = () => {
   const [authorDict, setAuthorDict] = useState({});
   const [graphData, setGraphData] = useState({});
   const [articleList, setArticleList] = useState([]);
@@ -161,6 +161,6 @@ function App() {
       </Switch>
     </div>
   );
-}
+};
 
 export default App;
