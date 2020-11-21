@@ -28,5 +28,6 @@ export interface AuthorDict {
 }
 
 export type Filters = {
-  cat: boolean;
+  cat: any;
+  //   cat: boolean | any;
 };

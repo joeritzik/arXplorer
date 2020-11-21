@@ -3,10 +3,10 @@ export default interface Graph {
   //     width: number,
   //     height: number,
   // }
-  offsetX: number;
-  offsetY: number;
-  nodes: Node[];
-  links: Link[];
+  //   offsetX: number;
+  //   offsetY: number;
+  nodes: Node;
+  links: Link;
 }
 
 export type Node = {

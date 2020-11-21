@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Search from './components/Search';
 import Navbar from './components/Navbar';
 import ArticlesList from './components/ArticlesList';
+import { Author, Filters, AuthorDict } from '../src/types/Article';
 
 import {
   fetchGraphData,
@@ -28,11 +29,11 @@ const App: FunctionComponent = () => {
   const [tooLarge, setTooLarge] = useState(false);
 
   const handleSearchForm = async (
-    title,
-    author,
-    journal,
-    abstract,
-    filters
+    title: string,
+    author: AuthorDict,
+    journal: string,
+    abstract: string,
+    filters: Filters
   ) => {
     const [query, searchFilters] = queryPathBuilder(
       title,
@@ -68,7 +69,7 @@ const App: FunctionComponent = () => {
     }
   };
 
-  const handleQuickSearch = (author) => {
+  const handleQuickSearch = (author: Author) => {
     if (articleList.length === 0) {
       handleSearchForm('', author, '', '');
     } else {
