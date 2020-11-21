@@ -5,17 +5,24 @@ export default interface Graph {
   // }
   offsetX: number;
   offsetY: number;
-  node: Node[];
-  link: Link[];
+  nodes: Node[];
+  links: Link[];
 }
 
 export type Node = {
-  id: string;
+  id: Author;
+  weight: number;
   group: number;
+  cat: [cat: string];
+  cat_name: string;
 };
 
 export type Link = {
   source: string;
   target: string;
   value: number;
+};
+
+type Author = {
+  id: string;
 };
