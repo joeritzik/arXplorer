@@ -1,8 +1,22 @@
 //import link and node
+import { Link, Selection } from 'd3';
+import { NodesVisitor } from 'typescript';
+import { GraphLink, GraphNode, GraphData } from '../../types/Graph';
 
+type LinkDatum = GraphLink;
+type NodeDatum = GraphNode;
+type This = GraphData;
 
+type D3HelperFunction<G, D, P, T> = (
+  selecion: Selection<G, D, P, T>,
+  data: Link<This, LinkDatum, NodeDatum>,
+  cb?: () => void
+) => Selection<G, D, P, T>;
 
-export const linkElement = (selection, data) => {
+export const linkElement: D3HelperFunction<SVGSVGElement, LinkDatum, P extends unknown, T extends unknown> = (
+  selection,
+  data
+) => {
   return selection
     .append('g')
     .classed('nodes', true)
@@ -14,7 +28,7 @@ export const linkElement = (selection, data) => {
     .attr('stroke-opacity', 0.6);
 };
 
-export const nodeElement = (selection, data, cb) => {
+export const nodeElement = (selection: Selection, data, cb): Selection => {
   return selection
     .append('g')
     .classed('nodes', true)

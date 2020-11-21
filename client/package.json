@@ -8,6 +8,9 @@
     "@testing-library/user-event": "^12.2.0",
     "@types/node": "^14.14.9",
     "@types/react": "^16.9.56",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/xml2js": "^0.4.7",
     "commitizen": "^4.2.2",
     "d3": "^6.2.0",
     "dayjs": "^1.9.6",
@@ -44,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node-fetch": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
     "eslint": "^7.13.0",

@@ -1,4 +1,5 @@
 'use strict';
+import { Link, Selection } from 'd3';
 
 import {
   select,
@@ -20,20 +21,20 @@ import {
 } from './graphElements';
 
 const drawGraph = (
-  svg,
+  svg: Selection<SVGSVGElement | null, unknown, null, undefined>,
   data,
   { width, height },
   clickHandler,
   extractCategories
-) => {
+): any => {
   svg.attr('viewBox', [0, 0, width, height]).classed('viewBox', true);
 
   // Clears out the existing DOM-elements so the new graph won't override the graph and duplicate
   svg.selectAll('rect').remove();
   svg.selectAll('g').remove();
 
-  let offsetX = 0;
-  let offsetY = 0;
+  const offsetX = 0;
+  const offsetY = 0;
 
   svg
     .append('rect')

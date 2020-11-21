@@ -8,7 +8,16 @@ import Home from './components/Home';
 import Search from './components/Search';
 import Navbar from './components/Navbar';
 import ArticlesList from './components/ArticlesList';
-import { Author, Filters, AuthorDict } from '../src/types/Article';
+import {
+  Article,
+  Author,
+  Dictionary,
+  DictionaryAuthorEntry,
+  QueryFilter,
+  ArxivMetadata,
+} from './types/Dict';
+
+import { GraphData } from './types/Graph';
 
 import {
   fetchGraphData,
@@ -19,22 +28,22 @@ import {
 import { queryPathBuilder } from './services/apiHelpers';
 
 const App: FunctionComponent = () => {
-  const [authorDict, setAuthorDict] = useState({});
-  const [graphData, setGraphData] = useState({});
-  const [articleList, setArticleList] = useState([]);
-  const [selectedAuthor, setSelectedAuthor] = useState('');
-  const [selectedArticle, setSelectedArticle] = useState('');
-  const [emptySearch, setEmptySearch] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [tooLarge, setTooLarge] = useState(false);
+  const [authorDict, setAuthorDict] = useState<DictionaryAuthorEntry | {}>({});
+  const [graphData, setGraphData] = useState<typeof Graph | {}>({});
+  const [articleList, setArticleList] = useState<Article[]>([]);
+  const [selectedAuthor, setSelectedAuthor] = useState<string>('');
+  const [selectedArticle, setSelectedArticle] = useState<string>('');
+  const [emptySearch, setEmptySearch] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [tooLarge, setTooLarge] = useState<boolean>(false);
 
   const handleSearchForm = async (
     title: string,
-    author: AuthorDict,
+    author: string,
     journal: string,
     abstract: string,
-    filters: Filters
-  ) => {
+    filters?: QueryFilter
+  ): Promise<boolean> => {
     const [query, searchFilters] = queryPathBuilder(
       title,
       author,
@@ -44,8 +53,10 @@ const App: FunctionComponent = () => {
     );
     setLoading(true);
     try {
-      const [dict, data, articles] = await fetchGraphData(query, searchFilters);
-      console.log(searchFilters);
+      const [dict, data, articles] = await fetchGraphData(
+        query as string,
+        searchFilters as QueryFilter
+      );
       if (data.links.length > 1000) {
         setTooLarge(true);
         setTimeout(() => setTooLarge(false), 5000);
@@ -69,7 +80,7 @@ const App: FunctionComponent = () => {
     }
   };
 
-  const handleQuickSearch = (author: Author) => {
+  const handleQuickSearch = (author: string) => {
     if (articleList.length === 0) {
       handleSearchForm('', author, '', '');
     } else {
@@ -77,15 +88,23 @@ const App: FunctionComponent = () => {
     }
   };
 
-  const handleGraphExpand = async (author) => {
+  const handleGraphExpand = async (author: string): Promise<void> => {
     const [query, _] = queryPathBuilder('', author);
     setLoading(true);
     try {
-      const [dict, data, metadata, articles] = await fetchGraphData(query);
-      const [updatedDict, updatedData] = await updateAuthorData(
-        authorDict,
+      const [dict, data, metadata, articles]:
+        | boolean
+        | [
+            Article[] | Dictionary | GraphData[] | ArxivMetadata
+          ] = await fetchGraphData(query);
+      const [updatedDict, updatedData]: [
+        Dictionary,
+        GraphData
+      ] = await updateAuthorData(
+        authorDict as DictionaryAuthorEntry, // is this just authos?
         dict
       );
+
       const updatedArticles = await updateArticlesList(articleList, articles);
       setEmptySearch(false);
       setLoading(false);
@@ -104,8 +123,10 @@ const App: FunctionComponent = () => {
     }
   };
 
-  const removeSelectedAuthor = (author) => {
-    setGraphData(() => removeAuthorFromGraph(graphData, author));
+  const removeSelectedAuthor = (author: string) => {
+    setGraphData(() =>
+      removeAuthorFromGraph(graphData as GraphData, author as string)
+    );
     setSelectedAuthor('');
   };
 

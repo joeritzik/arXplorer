@@ -7,9 +7,30 @@ import { select } from 'd3';
 import RightSidebar from '../RightSidebar';
 import TinySearchBar from '../TinySearchBar';
 import GraphErrorHandler from '../GraphErrorHandler';
-import { Author } from '../../types/Article';
-import { Category } from '../../types/Category';
+import {
+  Author,
+  CategoryReference,
+  ArxivNode,
+  ArxivCategory,
+  Dictionary,
+} from '../../types/Dict';
+import { GraphData, GraphNode } from '../../types/Graph';
 
+interface GraphProps {
+  graphData: GraphData;
+  handleGraphExpand: (author: string) => void;
+  authorDict: Dictionary;
+  selectedAuthor;
+  setSelectedAuthor;
+  setSelectedArticle;
+  removeSelectedAuthor;
+  handleQuickSearch;
+  killGraph;
+  emptySearch;
+  loading;
+  tooLarge;
+  setTooLarge;
+}
 function Graph({
   graphData,
   handleGraphExpand,
@@ -49,9 +70,9 @@ function Graph({
     handleGraphExpand(selectedAuthor);
   };
 
-  const extractCategories = (data) => {
-    let cats = [];
-    data.forEach((n) => {
+  const extractCategories = (data: GraphNode[]) => {
+    const cats = [];
+    data.forEach((n: GraphNode) => {
       if (cats.filter((el) => el.name === n.cat_name).length === 0) {
         cats.push({
           name: n.cat_name,

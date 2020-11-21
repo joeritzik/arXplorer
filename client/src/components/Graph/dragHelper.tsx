@@ -30,7 +30,12 @@ interface Data {
 //simulation
 // selection, offetx and y
 
-export const dragFunc = (simulation: Simulation<SimulationNodeDatum, Link>) => {
+export const dragFunc = (
+  simulation: Simulation<
+    SimulationNodeDatum,
+    SimulationLinkDatum<NodeDatum> | undefined
+  >
+) => {
   function dragStarted(event: any): void {
     if (!event.active) simulation.alphaTarget(0.5).restart();
     event.subject.fx = event.subject.x;

@@ -1,28 +1,26 @@
-export default interface Graph {
-  // svg: {
-  //     width: number,
-  //     height: number,
-  // }
-  //   offsetX: number;
-  //   offsetY: number;
-  nodes: Node;
-  links: Link;
+import { Author } from './Dict';
+
+export interface GraphData {
+  nodes: GraphNode[];
+  links: GraphLink[];
 }
 
-export type Node = {
-  id: Author;
+export type GraphNode = {
+  id: string;
   weight: number;
   group: number;
-  cat: [cat: string];
+  cat: string;
   cat_name: string;
 };
 
-export type Link = {
-  source: string;
-  target: string;
-  value: number;
-};
+// id: string;
+//     weight: number;
+//     group: any;
+//     cat: string;
+//     cat_name: any;
 
-type Author = {
-  id: string;
+export type GraphLink = {
+  source: string;
+  target: string; // why is this not author?
+  //   value: number;
 };

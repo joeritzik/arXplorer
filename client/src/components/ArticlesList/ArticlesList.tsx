@@ -8,7 +8,7 @@ import {
   getArticleId,
   parseGreekLetters,
 } from '../../services/dataHelpers';
-import Article from '../../types/Article';
+import Article from '../../types/Dict';
 import Category from '../../types/Category';
 
 type ArticleListProps = {
